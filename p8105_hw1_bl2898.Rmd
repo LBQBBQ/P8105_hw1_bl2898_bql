@@ -1,0 +1,51 @@
+---
+title: "HW1"
+author: "Boqian Li"
+date: "9/23/2021"
+output: html_document
+---
+
+### Problem 1 
+```{r}
+
+library(tidyverse)
+set.seed(1234)
+
+random_sample <- rnorm(10, mean = 0, sd = 1)
+data_test <- ifelse(random_sample > 0, 1, 0)
+char_vec <- ifelse(data_test == 1, "greater than 0", "less than 0")
+factor_vec <- as.factor(ifelse(random_sample <= 0.3, "A", 
+                     ifelse(random_sample <= 0.6, "B", "C")))
+levels(factor_vec)
+
+data_frame = tibble(
+  random_sample,
+  data_test,
+  char_vec,
+  factor_vec
+)
+
+str(view(data_frame))
+mean(random_sample)
+```
+
+### Problem 2
+```{r}
+library(tidyverse)
+data("penguins", package = "palmerpenguins")
+
+names(penguins)
+nrow(penguins)
+ncol(penguins)
+
+flipper_length_mm <- pull(penguins, flipper_length_mm)
+bill_length_mm <- pull(penguins, bill_length_mm)
+
+plot_df <- tibble(
+  flipper_length_mm,
+  bill_length_mm
+)
+
+ggplot(plot_df, aes(bill_length_mm, flipper_length_mm, colour = "species")) + geom_point()
+```
+
